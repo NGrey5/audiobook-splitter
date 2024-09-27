@@ -60,7 +60,6 @@ func main() {
 		fileName := fmt.Sprintf("%s.%s", label.Name, inputFileExt) // The new file name with the same extension as the input
 		filePath := path.Join(outputDir, fileName) // The file path within the output directory
 		trackNum := fmt.Sprintf("track=%d", i+1)
-		fmt.Println(trackNum)
 
 		cmd := exec.Command("ffmpeg", "-i", inputFile, "-ss", label.StartTime, "-to", label.EndTime, "-c", "copy", "-metadata", trackNum, filePath, "-y")
 		var out bytes.Buffer
