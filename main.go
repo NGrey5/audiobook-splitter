@@ -55,11 +55,12 @@ func main() {
 
 	// Loop through each label and split the input file
 	for i, label := range labels {
-		fmt.Printf("%d) Start: %s  End: %s  Name: %s\n", i+1, label.StartTime, label.EndTime, label.Name)
-
-		fileName := fmt.Sprintf("%s.%s", label.Name, inputFileExt) // The new file name with the same extension as the input
+		
+		fileName := fmt.Sprintf("%s%s", label.Name, inputFileExt) // The new file name with the same extension as the input
 		filePath := path.Join(outputDir, fileName) // The file path within the output directory
 		trackNum := fmt.Sprintf("track=%d", i+1)
+
+		fmt.Printf("%d) Start: %s  End: %s  Name: %s  File: %s\n", i+1, label.StartTime, label.EndTime, label.Name, fileName)
 
 		cmd := exec.Command("ffmpeg", "-i", inputFile, "-ss", label.StartTime, "-to", label.EndTime, "-c", "copy", "-metadata", trackNum, filePath, "-y")
 		var out bytes.Buffer
