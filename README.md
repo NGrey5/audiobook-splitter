@@ -51,5 +51,5 @@ To avoid this, we use `ffmpeg` in this tool to perform as lossless split of the 
 All this program does is performs the following command for each chapter in the labels file:
 
 ```console
-> ffmpeg -i {INPUT_FILE} -ss {START_TIME} -to {END_TIME} -c copy -metadata #={TRACK_NO} {OUTPUT_FILE} -y
+> ffmpeg -i {INPUT_FILE} -ss {START_TIME} -to {END_TIME} -c copy -metadata track={TRACK_NO} {OUTPUT_FILE} -y
 ```
