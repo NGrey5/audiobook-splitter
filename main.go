@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -78,34 +79,20 @@ func main() {
 
 func getArgs() Args {
 
-	inputArgs := os.Args
+	var inputFile string
+	flag.StringVar(&inputFile, "i", "./input.mp3", "the input file to parse")
+	var labelsFile string
+	flag.StringVar(&labelsFile, "l", "./labels.txt", "the label file to parse chapter points")
+	var outputPath string
+	flag.StringVar(&outputPath, "o", "./output", "the output path to create the split files")
 
-  args := Args{
-		InputFile: "./input.mp3",
-		OutputDirectory: "./output",
-		LabelFile: "./labels.txt",
+	flag.Parse()
+
+  return Args{
+		InputFile: inputFile,
+		OutputDirectory: outputPath,
+		LabelFile: labelsFile,
 	}
-
-	getArgAt := func(i int) string {
-		if len(inputArgs) < i {
-			log.Fatalf("Could not find arg at index %d", i)
-			return ""
-		}
-		return inputArgs[i]
-	}
-
-	for i, arg := range inputArgs {
-		switch arg {
-		case "-i":
-			args.InputFile = getArgAt(i+1);
-		case "-l":
-			args.LabelFile = getArgAt(i+1);
-		case "-o":
-			args.OutputDirectory = getArgAt(i+1);
-		}
-	}
-
-	return args
 }
 
 type Label struct {
